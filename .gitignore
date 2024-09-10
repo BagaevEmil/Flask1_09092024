@@ -1,0 +1,9 @@
+.idea/
+.vscode
+*.рус
+__pycache__/
+*env/
+*.db
+*.sqlite
+*.sqlite3
+*.tmp
