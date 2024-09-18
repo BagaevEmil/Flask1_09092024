@@ -1,6 +1,7 @@
 from flask import Flask, jsonify,request 
 app = Flask(__name__)
 
+app.config['JSON_AS_ASCII'] = False; 
 
 
 about_me = {
