@@ -1,4 +1,7 @@
+from typing import Any
 from flask import Flask, jsonify,request 
+from random import choice
+
 app = Flask(__name__)
 
 app.config['JSON_AS_ASCII'] = False; 
@@ -68,6 +71,17 @@ def get_quote(quote_id : int) -> dict: # созаем функццию и пер
 @app.route("/params/<value>")
 def param_example(value: str):
     return jsonify(param=value)
+
+# вывод длины списка\ количества цитат. Function for Task3 of Practice Part 1
+@app.get("/quotes/count")
+def quotes_count():
+    return jsonify(count=len(quotes))
+
+# вывод случайной цитаты Function for Task4 of Practice Part 1
+# указываем список методов, с помощью которых мы выполняемэтот запрос. По умолчанию - get, мы пропишем явно
+@app.route("/quotes/random", methods=["GET"]) 
+def random_quote()-> dict:
+    return jsonify(choice(quotes))
 
 if __name__ == "__main__": # если этот файл запущена как главный модуль тогда мы запускаем приложение вызываем у нее метод run и запускаем его в тч в режиме отладки
     app.run(debug=True)
