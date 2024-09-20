@@ -50,6 +50,31 @@ def get_quotes():
     return quotes
 
 
+# /quotes/1
+# /quotes/2
+# /quotes/3
+# ....
+# /quotes/n 
+
+@app.route("/quotes/<int:quote_id>") #вводим изменяемую переменную и сразу просим перевести ее в int
+def get_quote(quote_id : int) -> dict: # созаем функццию и передаем туда переменную quote_id
+    """Функция возвращает цитату по значению ключа id=quote_id"""
+    for quote in quotes:
+        if quote["id"]==quote_id:
+            return jsonify(quote), 200
+    return {"error": f"Quote with id={quote_id} not found"}, 404
+
+# 
+@app.route("/params/<value>")
+def param_example(value: str):
+    return jsonify(param=value)
+
+if __name__ == "__main__": # если этот файл запущена как главный модуль тогда мы запускаем приложение вызываем у нее метод run и запускаем его в тч в режиме отладки
+    app.run(debug=True)
+
+    from flask import request
+
+
 # URL/quotes
 """
 @app.route("/quotes", methods=['POST'])
@@ -58,12 +83,3 @@ def create_quote():
     print("data = ", data)
     return {}, 201
 """
-
-
-    
-
-if __name__ == "__main__": # если этот файл запущена как главный модуль тогда мы запускаем приложение вызываем у нее метод run и запускаем его в тч в режиме отладки
-    app.run(debug=True)
-
-    from flask import request
-
